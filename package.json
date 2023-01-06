@@ -17,6 +17,8 @@
     "fastify": "^3.29.3",
     "level": "^8.0.0",
     "nodemon": "^2.0.20",
+    "winston": "^3.8.2",
+    "winston-daily-rotate-file": "^4.7.1",
     "ws": "^8.9.0"
   }
 }
