@@ -63,7 +63,7 @@ function buildMerkleTree(transactions) {
     hashList = newRow;
   }
 
-  return hashList[0];
+  return hashList[0].val;
 }
 
 module.exports = { getMerklePath, verifyMerkleProof, buildMerkleTree };
