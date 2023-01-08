@@ -60,7 +60,7 @@ class Transaction {
     }
   }
 
-  static isValid(tx) {
+  static async isValid(tx) {
     try {
       const { fromAddress, data, signature } = tx;
 

@@ -40,34 +40,34 @@ describe("Transaction", () => {
     assert.strictEqual(pubKey, alice.getPublic("hex"));
   });
 
-  it("should correctly validate a signed transaction", () => {
+  it("should correctly validate a signed transaction", async () => {
     const tx = new Transaction(alice.getPublic("hex"), bob.getPublic("hex"), {
       partyID: ID,
     });
     Transaction.sign(tx, alice);
-    assert(Transaction.isValid(tx));
+    assert(await Transaction.isValid(tx));
   });
 
-  it("should reject an unsigned transaction", () => {
+  it("should reject an unsigned transaction", async () => {
     const tx = new Transaction(alice.getPublic("hex"), bob.getPublic("hex"), {
       partyID: ID,
     });
-    assert(!Transaction.isValid(tx));
+    assert(!(await Transaction.isValid(tx)));
   });
 
-  it("should reject a transaction signed with the wrong key pair", () => {
+  it("should reject a transaction signed with the wrong key pair", async () => {
     const tx = new Transaction(alice.getPublic("hex"), bob.getPublic("hex"), {
       partyID: ID,
     });
     Transaction.sign(tx, bob);
-    assert(!Transaction.isValid(tx));
+    assert(!(await Transaction.isValid(tx)));
   });
 
-  it("should reject a transaction with the invalid data", () => {
+  it("should reject a transaction with the invalid data", async () => {
     const tx = new Transaction(alice.getPublic("hex"), bob.getPublic("hex"), {
       partyID: "12321312",
     });
     Transaction.sign(tx, alice);
-    assert(!Transaction.isValid(tx));
+    assert(!(await Transaction.isValid(tx)));
   });
 });
