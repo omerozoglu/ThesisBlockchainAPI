@@ -61,24 +61,6 @@ class Block {
       return false;
     }
   }
-
-  static isValid(block) {
-    try {
-      if (!Block.hasValidPropTypes(block)) {
-        logger.error(`Block rejected: Invalid property types`);
-        return false;
-      }
-      if (!Block.hasValidTransactions(block)) {
-        logger.error(`Block rejected: Invalid transactions`);
-        return false;
-      }
-
-      return true;
-    } catch (error) {
-      logger.error(error);
-      return false;
-    }
-  }
 }
 
 // const alice = ec.genKeyPair();
