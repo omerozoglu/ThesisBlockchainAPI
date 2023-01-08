@@ -1,5 +1,6 @@
 module.exports = {
-  block: require("./Block/block"),
-  transaction: require("./Transaction/transaction"),
-  transactionPool: require("./transaction-pool"),
+  Block: require("./Block/block"),
+  Transaction: require("./Transaction/transaction"),
+  TransactionPool: require("./transaction-pool"),
+  Merkle: require("./merkle"),
 };
