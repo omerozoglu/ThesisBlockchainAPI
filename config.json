@@ -1,0 +1,12 @@
+{
+    "PORT": 5000,
+    "MY_ADDRESS": "ws://localhost:5000",
+    "RPC_PORT": 3000,
+    "PEERS": [],
+    "MAX_PEERS": 100,
+    "PRIVATE_KEY": "19ca51825275e75a252d4aa6168746b78c1c30b2b7cb70ecc4191ccb9348830b",
+    "ENABLE_MINING": false,
+    "ENABLE_LOGGING": true,
+    "ENABLE_RPC": true,
+    "ENABLE_CHAIN_REQUEST": false
+}
