@@ -94,7 +94,7 @@ async function startServer(options) {
           }
 
           if (
-            newBlock.parentHash !== chainInfo.latestBlock.parentHash &&
+            newBlock.prevHash !== chainInfo.latestBlock.prevHash &&
             (!ENABLE_CHAIN_REQUEST ||
               (ENABLE_CHAIN_REQUEST && currentSyncBlock > 1))
             // Only proceed if syncing is disabled or enabled but already synced at least the genesis block
@@ -483,7 +483,7 @@ function loopMine(
   publicKey,
   ENABLE_CHAIN_REQUEST,
   ENABLE_LOGGING,
-  time = 1000
+  time = 6000
 ) {
   let length = chainInfo.latestBlock.blockNumber;
   let mining = true;
