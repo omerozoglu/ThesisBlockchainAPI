@@ -25,6 +25,7 @@ describe("Transaction", () => {
     const tx = new Transaction(alice.getPublic("hex"), bob.getPublic("hex"), {
       partyID: ID,
     });
+    
     Transaction.sign(tx, alice);
     assert.strictEqual(typeof tx.signature.v, "string");
     assert.strictEqual(typeof tx.signature.r, "string");

@@ -18,5 +18,4 @@ function generateGenesisBlock() {
     logger.error(error);
   }
 }
-generateGenesisBlock();
 module.exports = generateGenesisBlock;

@@ -63,7 +63,6 @@ class Transaction {
   static async isValid(tx) {
     try {
       const { fromAddress, data, signature } = tx;
-
       if (!signature.r && !signature.v && !signature.s) {
         logger.error(`Transaction rejected: Unsigned transaction`);
         return false;
@@ -74,11 +73,9 @@ class Transaction {
       // Check that the fromAddress corresponds to the address used to sign the transaction
       const txSenderAddress = SHA256(txSenderPubkey);
 
-      if (txSenderAddress !== SHA256(fromAddress)) {
+      if (txSenderAddress !== fromAddress) {
         logger.error(
-          `Transaction rejected: Invalid fromAddress. Expected ${txSenderAddress}, got ${SHA256(
-            fromAddress
-          )}`
+          `Transaction rejected: Invalid fromAddress. Expected ${txSenderAddress}, got ${fromAddress}`
         );
         return false;
       }

@@ -3,6 +3,7 @@
 // Miner thread's code.
 
 const { Block } = require("../../cores/index");
+const { logger } = require("../../utils");
 
 // Listening for messages from the main process.
 process.on("message", (message) => {
@@ -11,11 +12,9 @@ process.on("message", (message) => {
 
     const block = message.data[0];
     const difficulty = message.data[1];
-
     for (;;) {
       if (block.hash.startsWith(Array(difficulty + 1).join("0"))) {
         process.send({ result: block });
-
         break;
       }
       block.nonce++;

@@ -55,12 +55,12 @@ async function verifyBlock(newBlock, chainInfo) {
   }
 }
 
-async function updateDifficulty(newBlock, blockDB) {
+async function updateDifficulty(newBlock, chainInfo, blockDB) {
   if (newBlock.blockNumber % 100 === 0) {
     const oldBlock = await blockDB.get((newBlock.blockNumber - 99).toString());
 
-    newBlock.difficulty = Math.ceil(
-      (newBlock.difficulty * 100 * BLOCK_TIME) /
+    chainInfo.difficulty = Math.ceil(
+      (chainInfo.difficulty * 100 * BLOCK_TIME) /
         (newBlock.timestamp - oldBlock.timestamp)
     );
   }

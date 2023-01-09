@@ -4,8 +4,8 @@
     "RPC_PORT": 3000,
     "PEERS": [],
     "MAX_PEERS": 100,
-    "PRIVATE_KEY": "19ca51825275e75a252d4aa6168746b78c1c30b2b7cb70ecc4191ccb9348830b",
-    "ENABLE_MINING": false,
+    "PRIVATE_KEY": "aa781b1ee929013b33dfc1e62254c1676b1695e6e0b55de4de525d972f979f71",
+    "ENABLE_MINING": true,
     "ENABLE_LOGGING": true,
     "ENABLE_RPC": true,
     "ENABLE_CHAIN_REQUEST": false

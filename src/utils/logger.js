@@ -9,7 +9,7 @@ const customFormat = printf(({ level, message, label, timestamp }) => {
 });
 
 const fileRotateTransport = new transports.DailyRotateFile({
-  filename: "../../logs/rotate-%DATE%.log",
+  filename: "./logs/rotate-%DATE%.log",
   datePattern: "YYYY-MM-DD",
   maxFiles: "14d",
 });
@@ -27,7 +27,7 @@ const logger = createLogger({
   ],
   exitOnError: false,
   exceptionHandlers: [
-    new transports.File({ filename: "../../logs/exceptions.log" }),
+    new transports.File({ filename: "./logs/exceptions.log" }),
   ],
 });
 
