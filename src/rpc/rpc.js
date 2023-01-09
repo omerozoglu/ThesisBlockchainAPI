@@ -55,6 +55,28 @@ function rpc(PORT, client, transactionHandler, keyPair, stateDB, blockDB) {
         respond({ mining: client.mining });
         break;
 
+      case "get_voteResult":
+        const parties = [];
+        const blockscount = Math.max(
+          ...(await blockDB.keys().all()).map((key) => parseInt(key))
+        );
+        for (let i = 1; i <= blockscount; i++) {
+          const element = await blockDB.get(i.toString());
+          if (element.transactions.length < 0) {
+            continue;
+          }
+
+          for (let k = 0; k < element.transactions.length; k++) {
+            const tx = element.transactions[k];
+            if (!parties.find((x) => x.partyID == tx.data.partyID)) {
+              parties.push({ partyID: tx.data.partyID, result: 1 });
+            } else {
+              parties.find((x) => x.partyID == tx.data.partyID).result++;
+            }
+          }
+        }
+        respond({ results: parties });
+        break;
       default:
         throwError("Invalid option.", 404);
     }
@@ -281,7 +303,6 @@ function rpc(PORT, client, transactionHandler, keyPair, stateDB, blockDB) {
         }
 
         break;
-
       default:
         throwError("Invalid option.", 404);
     }
