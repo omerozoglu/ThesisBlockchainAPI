@@ -155,10 +155,16 @@ async function startServer(options) {
             "LOG :: New transaction received, broadcasted and added to pool."
           );
 
-          chainInfo.transactionPool.push(transaction);
+          if (chainInfo.transactionPool.includes(transaction)) {
+            return;
+          }
 
+          chainInfo.transactionPool.push(transaction);
+          const others = opened.filter(
+            (node) => node.address !== requestAddress
+          );
           // Broadcast the transaction
-          sendMessage(message, opened);
+          sendMessage(message, others);
 
           break;
 
@@ -286,7 +292,7 @@ async function startServer(options) {
   if (ENABLE_RPC)
     rpc(
       RPC_PORT,
-      { publicKey, mining: ENABLE_MINING },
+      { publicKey, mining: ENABLE_MINING, MY_ADDRESS },
       sendTransaction,
       keyPair,
       stateDB,
@@ -341,8 +347,14 @@ function connect(MY_ADDRESS, address) {
 }
 
 // Function to broadcast a transaction.
-async function sendTransaction(transaction) {
-  sendMessage(produceMessage(TYPE.CREATE_TRANSACTION, transaction), opened);
+async function sendTransaction(transaction, MY_ADDRESS) {
+  sendMessage(
+    produceMessage(TYPE.CREATE_TRANSACTION, {
+      transaction: transaction,
+      requestAddress: MY_ADDRESS,
+    }),
+    opened
+  );
 
   logger.info("LOG :: Sent one transaction.");
 

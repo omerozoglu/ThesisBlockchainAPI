@@ -283,7 +283,10 @@ function rpc(PORT, client, transactionHandler, keyPair, stateDB, blockDB) {
         } else {
           respond({ message: "tx received." });
 
-          await transactionHandler(req.body.params.transaction);
+          await transactionHandler(
+            req.body.params.transaction,
+            client.MY_ADDRESS
+          );
         }
 
         break;
@@ -296,7 +299,6 @@ function rpc(PORT, client, transactionHandler, keyPair, stateDB, blockDB) {
           throwError("Invalid request.", 400);
         } else {
           const transaction = req.body.params.transaction;
-          logger.info(JSON.stringify(transaction));
           Transaction.sign(transaction, keyPair);
 
           respond({ transaction });

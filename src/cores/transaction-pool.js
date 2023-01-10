@@ -10,13 +10,13 @@ async function addTransaction(transaction, chainInfo, stateDB) {
     return;
   }
   const txPool = chainInfo.transactionPool;
-  // Get public key and address from sender
-  const txSenderPubkey = Transaction.getPubKey(transaction);
-  const txSenderAddress = SHA256(txSenderPubkey);
-  if (!(await stateDB.keys().all()).includes(txSenderAddress)) {
-    logger.error("StateDB :: Failed to add one transaction to pool.");
-    return;
-  }
+  // // Get public key and address from sender
+  // const txSenderPubkey = Transaction.getPubKey(transaction);
+  // const txSenderAddress = SHA256(txSenderPubkey);
+  // if (!(await stateDB.keys().all()).includes(txSenderAddress)) {
+  //   logger.error("StateDB :: Failed to add one transaction to pool.");
+  //   return;
+  // }
   txPool.push(transaction);
   logger.info(`Added one transaction to pool`);
 }
@@ -34,7 +34,7 @@ async function clearDepreciatedTxns(chainInfo, stateDB) {
     if (skipped[txSenderAddress]) continue;
 
     // Weak-checking
-    if (Transaction.isValid(tx)) {
+    if (await Transaction.isValid(tx)) {
       newTxPool.push(tx);
     }
   }

@@ -16,15 +16,13 @@ class Transaction {
     this.signature = {};
   }
 
-  static getHash() {
-    return SHA256(
-      JSON.stringify(this.fromAddress + this.toAddress + this.data)
-    );
+  static getHash(tx) {
+    return SHA256(JSON.stringify(tx.fromAddress + tx.toAddress + tx.data));
   }
 
   static sign(tx, keyPair) {
     try {
-      const sigObj = keyPair.sign(Transaction.getHash());
+      const sigObj = keyPair.sign(Transaction.getHash(tx));
       tx.signature = {
         v: sigObj.recoveryParam.toString(16),
         r: sigObj.r.toString(16),
@@ -39,7 +37,7 @@ class Transaction {
   static getPubKey(tx) {
     try {
       // Get transaction's body's hash and recover original signature object
-      const msgHash = Transaction.getHash();
+      const msgHash = Transaction.getHash(tx);
       const { r, s, v } = tx.signature;
       const sigObj = {
         r: new BN(r, 16),
