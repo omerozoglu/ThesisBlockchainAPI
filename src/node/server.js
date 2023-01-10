@@ -101,7 +101,7 @@ async function startServer(options) {
           ) {
             chainInfo.checkedBlock[newBlock.hash] = true;
 
-            if (await verifyBlock(newBlock, chainInfo, ENABLE_LOGGING)) {
+            if (await verifyBlock(newBlock, chainInfo)) {
               logger.info("New block received.");
 
               // If mining is enabled, we will set mined to true, informing that another node has mined before us.
@@ -123,6 +123,7 @@ async function startServer(options) {
                 chainInfo,
                 stateDB
               );
+              
               logger.info(
                 `Block #${newBlock.blockNumber} synced, state transited.`
               );
