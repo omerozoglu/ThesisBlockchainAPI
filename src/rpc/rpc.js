@@ -3,6 +3,9 @@
 const { Transaction } = require("../cores/index");
 const { logger } = require("../utils");
 const fastify = require("fastify")();
+const cors = require("@fastify/cors");
+
+fastify.register(cors);
 
 function rpc(PORT, client, transactionHandler, keyPair, stateDB, blockDB) {
   process.on("uncaughtException", (err) => logger.error(err));
